@@ -7,15 +7,28 @@ import {
 } from "lucide-react";
 import "./Sidebar.css";
 import Logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import BurgerButton from "./BurgerButton";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const [activePage, setActivePage] = useState("dashboard");
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState({
     documents: false,
     crm: false,
     owners: false,
     generalDocs: false,
   });
+
+  const toggleMobile = () => {
+    setIsMobileOpen(!isMobileOpen);
+  };
+
+  const closeMobile = () => {
+    setIsMobileOpen(false);
+  };
 
   const toggleSection = (section) => {
     setExpandedSections((prev) => ({
@@ -25,14 +38,21 @@ const Sidebar = () => {
   };
 
   const handleSetActive = (page, event) => {
-    event.preventDefault(); // Prevent default anchor behavior
+    event.preventDefault();
     setActivePage(page);
   };
 
   const isActive = (page) => activePage === page;
 
   return (
-    <div className="sidebar">
+    <>
+         
+         <BurgerButton onClick={toggleMobile} />
+      
+         <div className={`sidebar-overlay ${isMobileOpen ? 'show' : ''}`} onClick={closeMobile}></div>
+        
+  
+         <div className={`sidebar ${isMobileOpen ? 'open' : ''}`}>
       <div className="logos">
         <img src={Logo} alt="Logo" style={{ width: "250px", height: "100px" }} />
       </div>
@@ -44,34 +64,42 @@ const Sidebar = () => {
           <p>sarah.smith@example.com</p>
         </div>
       </div>
-
-      <nav className="nav-menu">
-        <a
-          href="#dashboard"
+      <nav className="nav-menu"> 
+        <Link
+          to="/"
           className={`nav-item ${isActive("dashboard") ? "active" : ""}`}
-          onClick={(e) => handleSetActive("dashboard", e)}
+          onClick={(e) => {handleSetActive("dashboard", e)
+            navigate("/")
+          }
+            
+          }
         >
           <LayoutDashboard size={20} />
           <span>Tableau de bord</span>
-        </a>
+        </Link>
 
-        <a
-          href="#ia-assistant"
+        <Link
+          to="#ia-assistant"
           className={`nav-item ${isActive("ia-assistant") ? "active" : ""}`}
-          onClick={(e) => handleSetActive("ia-assistant", e)}
+          onClick={(e) => {handleSetActive("ia-assistant", e)
+            navigate("/ia-assistant")
+          }}
         >
           <Bot size={20} />
           <span>IA Assistant</span>
-        </a>
+        </Link>
 
-        <a
-          href="#inbox"
+        <Link
+          to="/test"
           className={`nav-item ${isActive("inbox") ? "active" : ""}`}
-          onClick={(e) => handleSetActive("inbox", e)}
+          onClick={(e) => {
+            handleSetActive("inbox", e)
+              
+          }}
         >
           <Inbox size={20} />
           <span>Boîte de Réception</span>
-        </a>
+        </Link>
 
         {/* Consultation Section */}
         <div className="nav-section">
@@ -88,35 +116,35 @@ const Sidebar = () => {
           </div>
           {expandedSections.documents && (
             <div className="nav-section-content">
-              <a
-                href="#new-consultation"
+              <Link
+                to="#new-consultation"
                 className={`nav-item sub-item ${isActive("new-consultation") ? "active" : ""}`}
                 onClick={(e) => handleSetActive("new-consultation", e)}
               >
                 <Plus size={20} />
                 <span>Nouvelle Consultation</span>
-              </a>
+              </Link>
             </div>
           )}
         </div>
 
-        <a
-          href="#patients-list"
+        <Link
+          to="#patients-list"
           className={`nav-item ${isActive("patients-list") ? "active" : ""}`}
           onClick={(e) => handleSetActive("patients-list", e)}
         >
           <Users size={20} />
           <span>Liste des patients</span>
-        </a>
+        </Link>
 
-        <a
-          href="#planning"
+        <Link
+          to="#planning"
           className={`nav-item ${isActive("planning") ? "active" : ""}`}
           onClick={(e) => handleSetActive("planning", e)}
         >
           <Calendar size={20} />
           <span>Planification</span>
-        </a>
+        </Link>
 
         {/* Owners Section */}
         <div className="nav-section">
@@ -133,14 +161,14 @@ const Sidebar = () => {
           </div>
           {expandedSections.owners && (
             <div className="nav-section-content">
-              <a
-                href="#new-owner"
+              <Link
+                to="#new-owner"
                 className={`nav-item sub-item ${isActive("new-owner") ? "active" : ""}`}
                 onClick={(e) => handleSetActive("new-owner", e)}
               >
                 <Plus size={20} />
                 <span>Nouveau propriétaires</span>
-              </a>
+              </Link>
             </div>
           )}
         </div>
@@ -160,38 +188,38 @@ const Sidebar = () => {
           </div>
           {expandedSections.generalDocs && (
             <div className="nav-section-content">
-              <a
-                href="#prescriptions"
+              <Link
+                to="#prescriptions"
                 className={`nav-item sub-item ${isActive("prescriptions") ? "active" : ""}`}
                 onClick={(e) => handleSetActive("prescriptions", e)}
               >
                 <ClipboardList size={18} />
                 <span>Ordonnances</span>
-              </a>
-              <a
-                href="#certificates"
+              </Link>
+              <Link
+                to="#certificates"
                 className={`nav-item sub-item ${isActive("certificates") ? "active" : ""}`}
                 onClick={(e) => handleSetActive("certificates", e)}
               >
                 <ScrollText size={18} />
                 <span>Certificats</span>
-              </a>
-              <a
-                href="#health-report"
+              </Link>
+              <Link
+                to="#health-report"
                 className={`nav-item sub-item ${isActive("health-report") ? "active" : ""}`}
                 onClick={(e) => handleSetActive("health-report", e)}
               >
                 <Activity size={18} />
                 <span>Bilan de santé</span>
-              </a>
-              <a
-                href="#care-protocol"
+              </Link>
+              <Link
+                to="#care-protocol"
                 className={`nav-item sub-item ${isActive("care-protocol") ? "active" : ""}`}
                 onClick={(e) => handleSetActive("care-protocol", e)}
               >
                 <ClipboardPlus size={18} />
                 <span>Protocole de soins</span>
-              </a>
+              </Link>
             </div>
           )}
         </div>
@@ -211,78 +239,79 @@ const Sidebar = () => {
           </div>
           {expandedSections.crm && (
             <div className="nav-section-content">
-              <a
-                href="#invoices"
+              <Link
+                to="#invoices"
                 className={`nav-item sub-item ${isActive("invoices") ? "active" : ""}`}
                 onClick={(e) => handleSetActive("invoices", e)}
               >
                 <Menu size={18} />
                 <span>Liste des factures</span>
-              </a>
-              <a
-                href="#payments"
+              </Link>
+              <Link
+                to="#payments"
                 className={`nav-item sub-item ${isActive("payments") ? "active" : ""}`}
                 onClick={(e) => handleSetActive("payments", e)}
               >
                 <DollarSign size={18} />
                 <span>Paiements</span>
-              </a>
-              <a
-                href="#new-quote"
+              </Link>
+              <Link
+                to="#new-quote"
                 className={`nav-item sub-item ${isActive("new-quote") ? "active" : ""}`}
                 onClick={(e) => handleSetActive("new-quote", e)}
               >
                 <FileText size={18} />
                 <span>Nouveau devis</span>
-              </a>
-              <a
-                href="#new-invoice"
+              </Link>
+              <Link
+                to="#new-invoice"
                 className={`nav-item sub-item ${isActive("new-invoice") ? "active" : ""}`}
                 onClick={(e) => handleSetActive("new-invoice", e)}
               >
                 <FileText size={18} />
                 <span>Nouvelle facture</span>
-              </a>
-              <a
-                href="#financial-reports"
+              </Link>
+              <Link
+                to="#financial-reports"
                 className={`nav-item sub-item ${isActive("financial-reports") ? "active" : ""}`}
                 onClick={(e) => handleSetActive("financial-reports", e)}
               >
                 <ChartNoAxesColumnIncreasing size={18} />
                 <span>Rapport financiers</span>
-              </a>
+              </Link>
             </div>
           )}
         </div>
 
-        <a
-          href="#stocks"
+        <Link
+          to="#stocks"
           className={`nav-item ${isActive("stocks") ? "active" : ""}`}
           onClick={(e) => handleSetActive("stocks", e)}
         >
           <Store size={20} />
           <span>Registres stocks et pre...</span>
-        </a>
+        </Link>
 
-        <a
-          href="#settings"
+        <Link
+          to="#settings"
           className={`nav-item ${isActive("settings") ? "active" : ""}`}
           onClick={(e) => handleSetActive("settings", e)}
         >
           <Settings size={20} />
           <span>Paramètres</span>
-        </a>
+        </Link>
 
-        <a
-          href="#client-portal"
+        <Link
+          to="#client-portal"
           className={`nav-item ${isActive("client-portal") ? "active" : ""}`}
           onClick={(e) => handleSetActive("client-portal", e)}
         >
           <UserCircle size={20} />
           <span>Portail Client</span>
-        </a>
+        </Link>
       </nav>
     </div>
+    </>
   );
 };
 

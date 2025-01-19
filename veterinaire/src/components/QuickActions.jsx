@@ -25,9 +25,9 @@ const QuickActions = () => {
 
   return (
     <>
+      <h2 className="quick-actions-title">Actions Rapides</h2>
     <div className="quick-actions-wrapper">
       <div>
-      <h2 className="quick-actions-title">Actions Rapides</h2>
 
       </div>
       <div className="quick-actions-container">

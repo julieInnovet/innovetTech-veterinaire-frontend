@@ -3,7 +3,7 @@
 
 
 
-import DefaultLayout from "../layout/DefaultLayout.jsx";
+
 import "./Dashbord.css"; 
 import PageWithTabView from "./PageWithTabView.jsx";
 import QuickActions from "./QuickActions";
@@ -16,9 +16,7 @@ const Dashboard = () => {
       <>
 
 
-  <div className="side">
-    <DefaultLayout/>
-  </div>
+
 
 
     <div className="dashboard-container">
@@ -57,7 +55,11 @@ const Dashboard = () => {
       </div>
 </div>
 
-      <div>
+
+
+
+
+      <div className="content">
         <h1 className="title">Gestion des Patients et Rendez-vous</h1>
         <PageWithTabView />
       </div>
@@ -68,6 +70,8 @@ const Dashboard = () => {
 
 
       {/* Section Suivi des Opérations Cliniques */}
+
+        <div className="bord">
       <h2 className="operations-title">Suivi des Opérations Cliniques</h2>
       <div className="operations-container">
         <div className="operations-grid">
@@ -94,6 +98,8 @@ const Dashboard = () => {
 
         </div>
       </div>
+          
+        </div>
     </div>
     </>
   );

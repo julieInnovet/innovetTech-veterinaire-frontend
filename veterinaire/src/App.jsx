@@ -1,21 +1,23 @@
-import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Dashboard from './componets/Dashbord';
-
+import './App.css';
+import  MedicalChat  from './components/AiAssistant'; // AIChatAssistant component
+import Index from "./components/Index";  // Index layout component
+import { Home } from "./components/Home";  // Main Home component
 
 function App() {
-   
- 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="/contact" element={<p>contact</p>} />
+        {/* Main layout route */}
+        <Route path="/" element={<Index />}>
+          {/* Default route */}
+          <Route index element={<Home />} />
+          {/* Additional routes */}
+          <Route path="/ia-assistant" element={<MedicalChat />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
 }
 
-export default App
+export default App;

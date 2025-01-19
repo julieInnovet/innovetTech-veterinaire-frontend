@@ -1,0 +1,125 @@
+/* Ensure the layout takes full height */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;  /* Make sure you have a default font for styling */
+}
+
+/* The overall layout should be a flex container */
+.layout {
+  display: flex;
+  height: 100vh; /* Take the full height of the viewport */
+}
+
+/* Sidebar stays fixed on the left */
+.sidebar {
+  /* width: 250px; Width of the sidebar */
+  flex-shrink: 0; /* Prevent sidebar from shrinking */
+  background-color: white; /* Optional: Add background color for visibility */
+  position: sticky; /* Make sidebar stay fixed when scrolling */
+  top: 0;
+  z-index: 100; /* Ensure it stays above other elements */
+}
+
+/* Main content takes up the remaining space */
+.main-content {
+  flex-grow: 1; /* Allow the main content to fill the remaining space */
+  display: flex;
+  flex-direction: column; /* Ensure the header and content are stacked vertically */
+  margin-bottom: 30px;
+}
+
+
+/* Header should be at the top */
+.header {
+  width: 100%;
+  position: sticky; /* Keep the header on top */
+  top: 0;
+  z-index: 10;
+  background-color: #ffffff; /* Ensure header background is solid */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for separation */
+}
+
+/* Content should fill the remaining space below the header */
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #ffffff; /* Optional: Add a background color for visibility */
+  overflow-y: auto; /* Ensure content is scrollable if it overflows */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .main-content {
+    height: calc(100vh - 60px); /* Adjust based on your sidebar height */
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 10px;
+  }
+}
+
+
+
+
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    position: relative;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    position: fixed;
+    width: 280px;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+
+  .main-content {
+    width: 100%;
+    min-height: 100vh;
+    margin-left: 0;
+    padding-top: 60px; /* Space for the burger button */
+  }
+
+  .content {
+    width: 100%;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 10px;
+  }
+}

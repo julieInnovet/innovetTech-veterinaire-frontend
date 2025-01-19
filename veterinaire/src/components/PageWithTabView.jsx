@@ -15,11 +15,11 @@ const PageWithTabView = () => {
         <div className="page-container">
             {/* <h1>Bienvenue sur la page avec des onglets</h1> */}
             <div className="card">
-                <TabView
+                <TabView className='content-container'
                     activeIndex={activeIndex}
                     onTabChange={(e) => setActiveIndex(e.index)}
                 >
-                    <TabPanel header="File d’attente ">
+                    <TabPanel header="File d’attente " className="nav-link">
                         <Fildattente />
                     </TabPanel>
                     <TabPanel header="Agenda">

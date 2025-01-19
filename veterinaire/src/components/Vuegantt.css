@@ -1,0 +1,191 @@
+.schedule-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  /* padding: 2rem; */
+  box-sizing: border-box;
+}
+
+.schedule-container {
+  width: 100%;
+  /* max-width: 900px; */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.schedule-container h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  /* margin-bottom: 1.5rem; */
+  text-align: left;
+  padding-inline: 20px;
+  padding-top: 5px;
+  text-transform: capitalize;
+}
+
+.calendar {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.day {
+  text-align: center;
+  color: #4a5568;
+  font-size: 0.875rem;
+  position: relative;
+}
+
+.day span {
+  position: relative;
+  z-index: 1;
+}
+
+.appointments {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.doctor-row {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+.doctor-row:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.doctor-name {
+  width: 7rem;
+  font-size: 0.875rem;
+  color: #2d3748;
+  font-weight: 500;
+}
+
+.timeline {
+  flex: 1;
+  position: relative;
+  min-height: 3.5rem;
+}
+
+.appointment {
+  position: absolute;
+  height: 3.5rem;
+  border-radius: 1.75rem;
+  background-color: #5ba4a4;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.appointment:hover,
+.appointment.selected {
+  background-color: #4a8c8c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(91, 164, 164, 0.2);
+}
+
+.appointment-content {
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.appointment-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.appointment-time {
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .schedule-wrapper {
+    padding: 1rem;
+  }
+
+  .calendar {
+    padding: 1rem;
+  }
+
+  .days-header {
+    padding: 0 1rem;
+  }
+
+  .doctor-name {
+    width: 5rem;
+  }
+
+  .day {
+    font-size: 0.75rem;
+  }
+
+  .appointment-title {
+    font-size: 0.75rem;
+  }
+
+  .appointment-time {
+    font-size: 0.675rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .schedule-container h2 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .days-header {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .doctor-name {
+    width: 100%;
+    text-align: left;
+  }
+
+  .appointment-content {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .appointment-title {
+    font-size: 0.65rem;
+  }
+
+  .appointment-time {
+    font-size: 0.6rem;
+  }
+}
+

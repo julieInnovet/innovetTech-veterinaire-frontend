@@ -1,0 +1,113 @@
+/* Override padding for p-tabview-panels */
+.p-tabview .p-tabview-panels {
+    padding: 0 !important;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight {
+    color: black !important;
+}
+
+
+.page-container {
+    /* padding: 20px; */
+    font-family: Arial, sans-serif;
+    max-width: 100%; /* Full width by default */
+    margin: 0 auto; /* Center align for larger screens */
+    box-sizing: border-box; /* Ensure padding doesn't affect overall width */
+    height: auto; /* Remove fixed height */
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+    padding-inline: 10px !important;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.card {
+    /* margin: 20px auto; */
+    /* padding: 20px; */
+    border-radius: 8px;
+    background-color: #fff;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    border: #cecece 1px solid;
+    border-radius: 10px;
+    max-width: 1189px; /* Constrain width on larger screens */
+    width: 100%; /* Responsive width */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* PrimeReact TabView Customizations */
+.p-tabview .p-tabview-nav li {
+    transition: background-color 0.3s ease;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight {
+    background-color: #007ad9; /* Active tab color */
+    color: #fff;
+}
+
+.p-tabview .p-tabview-nav li:hover {
+    background-color: #dbe9f5; /* Hover color */
+}
+
+/* Navigation Link Styles */
+.nav-link:focus {
+    color: #000000 !important;
+    text-decoration: none;
+}
+
+.nav-link {
+    color: gray !important;
+}
+
+
+.p-tabview-nav-container {
+    color: gray !important;
+}
+
+.p-tabview-nav-container:focus {
+    color: rgb(0, 0, 0) !important;
+}
+
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .page-container {
+        padding: 15px; /* Reduce padding on smaller screens */
+    }
+
+    .card {
+        width: 100%; /* Full width on smaller screens */
+        padding: 15px; /* Adjust padding */
+    }
+
+    .content {
+        font-size: 14px; /* Slightly smaller font for readability */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem; /* Reduce font size for small screens */
+    }
+
+    .card {
+        padding: 10px; /* Further adjust padding for very small screens */
+    }
+
+    .content {
+        font-size: 12px; /* Adjust font size further */
+    }
+}
