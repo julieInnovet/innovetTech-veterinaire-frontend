@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Send, FileText, ChevronRight, ChevronLeft } from 'lucide-react'
+import { Send, FileText, ChevronRight, ChevronLeft,Mic } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -126,6 +126,8 @@ export default function MedicalChat() {
                 <Button type="submit" disabled={isLoading || !input.trim()} className="bg-teal-700">
                   <Send className="h-4 w-4" />
                 </Button>
+
+                <Button className="bg-teal-700 hover:bg-teal-600"><Mic/></Button>
               </div>
             </form>
           </div>

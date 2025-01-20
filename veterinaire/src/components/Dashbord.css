@@ -317,6 +317,7 @@ body {
   
   .title {
     font-size: 22px;
+    padding: 0 22px ;
   }
   
   .dashboard-number {
