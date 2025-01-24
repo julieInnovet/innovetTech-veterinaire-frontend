@@ -1,7 +1,9 @@
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
     darkMode: ["class"],
     content: [
-    "./src/**/*.{html,js,jsx,ts,tsx}",  // adjust based on your file structure
+    "./index.html",      // Include your main HTML file
+    "./src/**/*.{js,jsx,ts,tsx}", // Include all your React components
   ],
   theme: {
   	extend: {
@@ -55,4 +57,4 @@ module.exports = {
   	}
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

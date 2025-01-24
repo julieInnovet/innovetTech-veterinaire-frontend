@@ -1,26 +1,26 @@
-import { Outlet } from "react-router-dom";  // Outlet for child components
-import { Header } from "./Header";
-import Sidebar from "./SideBar";
-import "./Index.css";  // Make sure your global styles are correctly imported
+import { useState } from "react"
+import { Outlet } from "react-router-dom"
+import { Header } from "./Header"
+import { Sidebar } from "./Sidebar"
 
-function Index() {
+
+export const Index = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen)
+
   return (
-    <div className="layout">
-      {/* Sidebar stays fixed */}
-      <Sidebar />
-      
-      <div className="main-content">
-        {/* Header stays on top */}
-        <Header />
-        
-        {/* Content renders dynamically based on routes */}
-        <div className="content">
-          {/* The Outlet dynamically renders content, but layout stays the same */}
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <div className="flex flex-col flex-1 overflow-hidden">
+        <Header toggleSidebar={toggleSidebar} />
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-white p-6">
+          {/* <Dashboard/> */}
           <Outlet />
-        </div>
+          
+        </main>
       </div>
     </div>
-  );
+  )
 }
 
-export default Index;

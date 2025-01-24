@@ -1,19 +1,27 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
-import  MedicalChat  from './components/AiAssistant'; // AIChatAssistant component
-import Index from "./components/Index";  // Index layout component
-import { Home } from "./components/Home";  // Main Home component
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Index } from './components/Index';
+import { Dashboard } from './components/Dashboard';
+import { Plannification } from './components/Plannification';
+import MedicalChat from './components/AiAssistant';
+import {PatientsList} from "./components/PatientList"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Main layout route */}
+        {/* Main Layout route */}
         <Route path="/" element={<Index />}>
-          {/* Default route */}
-          <Route index element={<Home />} />
-          {/* Additional routes */}
-          <Route path="/ia-assistant" element={<MedicalChat />} />
+          {/* Nested routes */}
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="ia-assistant" element={<MedicalChat/>} />
+          <Route path="planning" element={<Plannification/>} />
+          <Route path="patient" element={<PatientsList/>} />
+
+
+    
+
+          {/* Add more nested routes here */}
         </Route>
       </Routes>
     </BrowserRouter>

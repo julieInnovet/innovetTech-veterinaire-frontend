@@ -6,8 +6,8 @@ import "primeicons/primeicons.css"
 import {Fildattente} from "./Fildattente"
 import {Calendar} from "./Calendar"
 import {Vuegantt} from "./Vuegantt"
-
-export const PageWithTabView = () => {
+import {DailySchedule} from "./Daily-schedule"
+export const FileDattenteDashboard = () => {
   const [activeIndex, setActiveIndex] = useState(0)
 
   return (
@@ -27,7 +27,13 @@ export const PageWithTabView = () => {
           <TabPanel header="Vue Gantt" className="text-gray-500 hover:text-black focus:text-black">
             <Vuegantt />
           </TabPanel>
+
+          <TabPanel header="Card" className="text-gray-500 hover:text-black focus:text-black">
+            <DailySchedule />
+          </TabPanel>
         </TabView>
+
+        
       </div>
     </div>
   )
