@@ -7,7 +7,7 @@ import {Fildattente} from "./Fildattente"
 import {Calendar} from "./Calendar"
 import {Vuegantt} from "./Vuegantt"
 import {DailySchedule} from "./Daily-schedule"
-export const FileDattenteDashboard = () => {
+export const FileDattenteDashboard = ({selectedStatus ,selectedPriority,searchQuery}) => {
   const [activeIndex, setActiveIndex] = useState(0)
 
   return (
@@ -19,7 +19,7 @@ export const FileDattenteDashboard = () => {
           className="[&_.p-tabview-panels]:!p-0"
         >
           <TabPanel header="File d'attente" className="text-gray-500 hover:text-black focus:text-black">
-            <Fildattente />
+            <Fildattente selectedStatus= {selectedStatus} selectedPriority={selectedPriority} searchQuery = {searchQuery} />
           </TabPanel>
           <TabPanel header="Agenda" className="text-gray-500 hover:text-black focus:text-black">
             <Calendar />

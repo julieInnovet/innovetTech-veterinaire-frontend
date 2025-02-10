@@ -1,31 +1,24 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-"use client"
+
 
 import { useState, useMemo, useCallback, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableRow, TableHeader } from "@/components/ui/table"
 import { Edit, Trash2, Save } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
+import { usePatientContext } from "../PatientContext"
 
-// Sample data - replace with your actual data
-const allPatients = Array(50)
-  .fill(null)
-  .map((_, i) => ({
-    id: i + 1,
-    name: `Étoile ${i + 1}`,
-    species: "Cheval",
-    lastVisit: "2024-09-15",
-  }))
+const ITEMS_PER_PAGE = 8
 
-const ITEMS_PER_PAGE = 16
+export const PatientsList = () => {
+  const navigate = useNavigate()
+  const { patients, updatePatientStatus } = usePatientContext()
 
-
-export const PatientsList=()=> {
   const [currentPage, setCurrentPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState("")
-  const [filteredPatients, setFilteredPatients] = useState(allPatients)
+  const [filteredPatients, setFilteredPatients] = useState(patients)
   const [editingPatient, setEditingPatient] = useState(null)
   const [isAddingPatient, setIsAddingPatient] = useState(false)
   const [newPatient, setNewPatient] = useState({ name: "", species: "" })
@@ -38,66 +31,70 @@ export const PatientsList=()=> {
     setEditingPatient(patient)
   }, [])
 
-  const handleSavePatient = useCallback((updatedPatient) => {
-    setFilteredPatients((prevPatients) => prevPatients.map((p) => (p.id === updatedPatient.id ? updatedPatient : p)))
-    setEditingPatient(null)
-  }, [])
+  const handleSavePatient = useCallback(
+    (updatedPatient) => {
+      setFilteredPatients((prevPatients) =>
+        prevPatients.map((p) => (p.id === updatedPatient.id ? { ...p, ...updatedPatient } : p)),
+      )
+      updatePatientStatus(updatedPatient.id, updatedPatient.status)
+      setEditingPatient(null)
+    },
+    [updatePatientStatus],
+  )
 
   const handleAddPatient = () => {
     const newPatientWithId = {
       ...newPatient,
       id: Date.now(),
+      owner: "Nouveau Propriétaire",
+      lastConsultation: new Date().toISOString().split("T")[0],
       lastVisit: new Date().toISOString().split("T")[0],
+      responsibleVet: "Dr. Nouveau",
+      status: "En attente",
     }
     setFilteredPatients((prev) => [newPatientWithId, ...prev])
     setNewPatient({ name: "", species: "" })
     setIsAddingPatient(false)
-    setCurrentPage(1) // Reset to the first page to show the new patient
+    setCurrentPage(1)
   }
 
-  // Calculate pagination
   const displayedPatients = useMemo(() => {
-    return filteredPatients.filter(
-      (patient) =>
-        patient.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        patient.species.toLowerCase().includes(searchQuery.toLowerCase()),
-    )
-  }, [filteredPatients, searchQuery])
+    return filteredPatients
+  }, [filteredPatients])
 
   const totalPages = Math.ceil(displayedPatients.length / ITEMS_PER_PAGE)
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
   const paginatedPatients = displayedPatients.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
-  // Generate page numbers for pagination
-  const pageNumbers = []
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i)
-  }
-
-  // Handle page change
   const handlePageChange = (page) => {
     if (page < 1 || page > totalPages) return
     setCurrentPage(page)
   }
 
   useEffect(() => {
-    const filtered = allPatients.filter(
-      (patient) =>
-        patient.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        patient.species.toLowerCase().includes(searchQuery.toLowerCase()),
-    )
+    const filtered = patients.filter((patient) => {
+      const searchableFields = [
+        patient.name,
+        patient.owner.name,
+        patient.lastConsultation,
+        patient.lastVisit,
+        patient.species,
+        patient.responsibleVet,
+      ]
+      return searchableFields.some((field) => field.toLowerCase().includes(searchQuery.toLowerCase()))
+    })
     setFilteredPatients(filtered)
     setCurrentPage(1)
-  }, [searchQuery])
+  }, [searchQuery, patients])
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#0f766e] mb-6">Patients</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#0f766e] mb-4 sm:mb-6">Patients</h1>
 
-        <div className="flex items-center justify-end gap-4 mb-6">
-          <div className="flex items-center gap-2">
-            <label htmlFor="chevaux-exclu" className="text-sm font-bold text-gray-600">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-end gap-4 mb-6">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <label htmlFor="chevaux-exclu" className="text-sm font-bold text-gray-600 whitespace-nowrap">
               chevaux exclu
             </label>
             <input
@@ -106,26 +103,27 @@ export const PatientsList=()=> {
               className="h-4 w-4 rounded border-gray-300 text-[#4A8B94] focus:ring-[#4A8B94]"
             />
           </div>
-          <Button
-            className="bg-[#0f766e] hover:bg-teal-600 text-white px-3 py-1.5 rounded-md shadow-md text-xs"
-            onClick={() => setIsAddingPatient(true)}
-          >
-            Ajouter un nouveau patients
-          </Button>
-          <div className="relative w-48">
-            <Input
-              placeholder="Recherche"
-              className="w-full bg-gray-50 border-gray-200"
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value)
-                setCurrentPage(1)
-              }}
-            />
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+            <Button
+              className="bg-[#0f766e] hover:bg-teal-600 text-white px-3 py-1.5 rounded-md shadow-md text-xs w-full sm:w-auto"
+              onClick={() => setIsAddingPatient(true)}
+            >
+              Ajouter un nouveau patient
+            </Button>
+            <div className="relative w-full sm:w-48">
+              <Input
+                placeholder="Recherche"
+                className="w-full bg-gray-50 border-gray-200"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value)
+                  setCurrentPage(1)
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
-
       <div className="bg-white rounded-lg shadow overflow-x-auto">
         <Table>
           <TableHeader>
@@ -135,7 +133,9 @@ export const PatientsList=()=> {
               <TableHead className="hidden xl:table-cell text-xs font-bold">Dernière consultation</TableHead>
               <TableHead className="hidden md:table-cell text-xs font-bold">Dernière visite</TableHead>
               <TableHead className="hidden sm:table-cell text-xs font-bold">Espèce</TableHead>
-              <TableHead className="hidden xl:table-cell text-xs font-bold">Véto responsable la dernière consultation</TableHead>
+              <TableHead className="hidden xl:table-cell text-xs font-bold">
+                Véto responsable la dernière consultation
+              </TableHead>
               <TableHead className="text-right text-xs font-bold">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -149,11 +149,20 @@ export const PatientsList=()=> {
                       onChange={(e) => setEditingPatient({ ...editingPatient, name: e.target.value })}
                     />
                   ) : (
-                    patient.name
+                    <button
+                      className="sm:cursor-default focus:outline-none"
+                      onClick={() => {
+                        if (window.innerWidth < 640) {
+                          navigate(`/patient/${patient.id}`)
+                        }
+                      }}
+                    >
+                      {patient.name}
+                    </button>
                   )}
                 </TableCell>
-                <TableCell className="hidden lg:table-cell">John Doe</TableCell>
-                <TableCell className="hidden xl:table-cell">{patient.lastVisit}</TableCell>
+                <TableCell className="hidden lg:table-cell">{patient.owner.name}</TableCell>
+                <TableCell className="hidden xl:table-cell">{patient.lastConsultation}</TableCell>
                 <TableCell className="hidden md:table-cell">{patient.lastVisit}</TableCell>
                 <TableCell className="hidden sm:table-cell">
                   {editingPatient?.id === patient.id ? (
@@ -165,12 +174,14 @@ export const PatientsList=()=> {
                     patient.species
                   )}
                 </TableCell>
-                <TableCell className="hidden xl:table-cell">Dr. Smith</TableCell>
+                <TableCell className="hidden xl:table-cell">{patient.responsibleVet}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
-                    <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
-                      Voir la fiche patient
-                    </Button>
+                    <Link to={`/patient/${patient.id}`}>
+                      <Button variant="secondary" size="sm" className="hidden sm:inline-flex">
+                        Voir la fiche patient
+                      </Button>
+                    </Link>
                     <Button
                       variant="ghost"
                       size="icon"
@@ -268,7 +279,9 @@ export const PatientsList=()=> {
             </div>
           </div>
           <DialogFooter>
-            <Button className="bg-teal-700 hover:bg-teal-600" onClick={handleAddPatient}>Ajouter</Button>
+            <Button className="bg-teal-700 hover:bg-teal-600" onClick={handleAddPatient}>
+              Ajouter
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

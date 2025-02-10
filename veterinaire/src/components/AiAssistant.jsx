@@ -70,7 +70,7 @@ export default function MedicalChat() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-1">
               <div className="flex items-center justify-between h-20">
                 <div className="flex items-center">
-                  <h1 className="text-sm font-semibold md:max-w-[10vw] sm:max-w-[70w] mt-5">
+                  <h1 className="text-sm font-semibold md:max-w-[10vw] sm:max-w-[70w] mt-1 px-2">
                     Conversation avec l'Assistant IA
                   </h1>
                 </div>

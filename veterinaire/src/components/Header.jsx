@@ -4,7 +4,7 @@ import Logo from "../assets/logo.png"
 
 export const Header = ({ toggleSidebar }) => {
   return (
-    <header className="sticky top-0 z-10 h-16 lg:h-[70px] bg-white border-b border-gray-200 flex items-center justify-between px-4 lg:px-6">
+    <header className="sticky top-0 z-10 h-16 lg:h-[70px] bg-white border-b border-gray-200 flex items-center justify-between px-0 lg:px-6 md:px-4">
       <div className="flex items-center">
         <button
           onClick={toggleSidebar}

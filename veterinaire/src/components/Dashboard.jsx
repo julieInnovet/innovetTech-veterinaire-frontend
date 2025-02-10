@@ -5,7 +5,7 @@ import {QuickActions} from "./QuickActions"
 export const Dashboard = () => {
   return (
     <div className="font-['Segoe UI',Tahoma,Geneva,sans-serif] overflow-hidden">
-      <div className="flex flex-wrap justify-center gap-5 p-5">
+      <div className="flex flex-wrap justify-center gap-5 p-2">
         <div className="flex flex-wrap justify-center items-center gap-5 mt-4 sm:justify-center">
           {[
             { title: "Nombre de rendez-vous à planifier", number: "05", note: "+20% par rapport au mois dernier" },

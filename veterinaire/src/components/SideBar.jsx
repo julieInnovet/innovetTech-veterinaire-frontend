@@ -27,7 +27,7 @@ import Logo from "../assets/logo.png"
 
 export const Sidebar = ({ isOpen, toggleSidebar }) => {
   const navigate = useNavigate()
-  const [activePage, setActivePage] = useState("dashboard")
+  const [activePage, setActivePage] = useState("/")
   const [expandedSections, setExpandedSections] = useState({
     documents: false,
     crm: false,
@@ -81,7 +81,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
 
           <nav className="flex flex-col gap-0.5 flex-grow">
             {[
-              { to: "/dashboard", icon: LayoutDashboard, label: "Tableau de bord", id: "dashboard" },
+              { to: "/", icon: LayoutDashboard, label: "Tableau de bord", id: "dashboard" },
               { to: "/ia-assistant", icon: Bot, label: "IA Assistant", id: "ia-assistant" },
               { to: "/test", icon: Inbox, label: "Boîte de Réception", id: "inbox" },
             ].map((item) => (
