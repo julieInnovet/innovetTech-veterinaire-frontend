@@ -182,14 +182,7 @@ export const PatientsList = () => {
                         Voir la fiche patient
                       </Button>
                     </Link>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8"
-                      onClick={() => handleDeletePatient(patient.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+
                     {editingPatient?.id === patient.id ? (
                       <Button
                         variant="ghost"
@@ -209,6 +202,16 @@ export const PatientsList = () => {
                         <Edit className="h-4 w-4" />
                       </Button>
                     )}
+
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8"
+                      onClick={() => handleDeletePatient(patient.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+
                   </div>
                 </TableCell>
               </TableRow>

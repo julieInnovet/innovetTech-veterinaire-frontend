@@ -83,7 +83,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
             {[
               { to: "/", icon: LayoutDashboard, label: "Tableau de bord", id: "dashboard" },
               { to: "/ia-assistant", icon: Bot, label: "IA Assistant", id: "ia-assistant" },
-              { to: "/test", icon: Inbox, label: "Boîte de Réception", id: "inbox" },
+              { to: "/boite-de-recption", icon: Inbox, label: "Boîte de Réception", id: "inbox" },
             ].map((item) => (
               <Link
                 key={item.id}
@@ -153,10 +153,12 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
             <div className="flex flex-col">
               <div
                 className="flex items-center px-6 py-3 text-[#555555] gap-3 transition-all duration-200 cursor-pointer font-bold text-sm hover:bg-[#0f766e] hover:text-white"
-                onClick={() => toggleSection("owners")}
+                onClick={() => {toggleSection("owners")
+                  navigate("/Propriétaires")
+                }}
               >
                 <UserPlus size={20} />
-                <span>Propriétaires</span>
+                <span>Propriétaires</span> 
                 <ChevronDown
                   className={`ml-auto transition-transform duration-200 ${expandedSections.owners ? "rotate-180" : ""}`}
                   size={16}

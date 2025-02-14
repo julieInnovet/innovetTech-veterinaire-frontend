@@ -9,6 +9,9 @@ import MedicalChat from './components/AiAssistant';
 import {PatientsList} from "./components/PatientList"
 import {PatientDetails} from "./components/PatientDetails"
 import {allPatients} from "./data"
+import {Propriétaires} from "./components/Propriétaires"
+import {MultiChannelInbox} from "./components/multichannel-inbox"
+import {PatientFile} from "./components/PatientFile"
 function App() {
   return (
     <PatientProvider>
@@ -22,7 +25,9 @@ function App() {
           <Route path="planning" element={<Plannification/>} />
           <Route path="patient" element={<PatientsList  patients = {allPatients}/>} />
           <Route path="/patient/:id" element={<PatientDetails patients={allPatients} />} />
-
+          <Route path="/Propriétaires" element={<Propriétaires />} />
+          <Route path="/boite-de-recption" element={<MultiChannelInbox />} />
+          <Route path="/patientDetail/:id" element={<PatientFile />} />
     
 
           {/* Add more nested routes here */}

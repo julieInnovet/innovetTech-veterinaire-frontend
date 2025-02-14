@@ -13,7 +13,7 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
 		  screens: {
-			"2xl": "1100px",
+			"2xl": "1024px",
 		  },
   		colors: {
   			background: 'hsl(var(--background))',

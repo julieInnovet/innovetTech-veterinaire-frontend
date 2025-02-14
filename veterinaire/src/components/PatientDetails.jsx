@@ -89,25 +89,25 @@ export const PatientDetails = () => {
             </Badge>
           </div>
           <div className="space-y-2 text-sm">
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr] 2xl:grid-cols-[auto_1fr] gap-x-2">
+            <div className="grid grid-cols-1  2xl:grid-cols-[auto_1fr] gap-x-2">
               <span className="text-black font-bold">Nom :</span>
               <span>{patient.owner.name}</span>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr] 2xl:grid-cols-[auto_1fr] gap-x-2">
+            <div className="grid grid-cols-1  2xl:grid-cols-[auto_1fr] gap-x-2">
               <span className="text-black font-bold">Email :</span>
               <span className="break-all">{patient.owner.email}</span>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr] 2xl:grid-cols-[auto_1fr] gap-x-2">
+            <div className="grid grid-cols-1  2xl:grid-cols-[auto_1fr] gap-x-2">
               <span className="text-black font-bold">Téléphone :</span>
               <span>{patient.owner.phone}</span>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr] 2xl:grid-cols-[auto_1fr] gap-x-2">
+            <div className="grid grid-cols-1  2xl:grid-cols-[auto_1fr] gap-x-2">
               <span className="text-black font-bold">Adresse :</span>
-              <span>{patient.owner.address}</span>
+              <span>{patient.owner.address.street} {patient.owner.address.city} {patient.owner.address.postalCode} {patient.owner.address.country}</span>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr] 2xl:grid-cols-[auto_1fr] gap-x-2">
+            <div className="grid grid-cols-1  2xl:grid-cols-[auto_1fr] gap-x-2">
               <span className="text-black font-bold">Adresse de l'écurie :</span>
-              <span>{patient.owner.stableAddress}</span>
+              <span>{patient.owner.stableAddress.street} {patient.owner.stableAddress.city} {patient.owner.stableAddress.postalCode} {patient.owner.stableAddress.country}</span>
             </div>
           </div>
         </div>
